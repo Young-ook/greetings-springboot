@@ -1,0 +1,89 @@
+{
+  "variables": {
+    "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
+    "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
+    "inventory_file": null,
+    "playbook_file": null,
+    "custom_timestamp": "{{timestamp}}",
+    "extra_vars": null,
+    "ami_uuid": null,
+    "aws_region": "us-east-1",
+    "aws_instance_type": "t2.large",
+    "aws_source_ami": null,
+    "aws_vpc": null,
+    "aws_subnet": null,
+    "aws_securitygroup_id": null,
+    "aws_iam_instance_profile": null,
+    "aws_ami_virtualization": "hvm"
+  },
+  "provisioners": [
+    {
+      "inline": "sleep 10",
+      "type": "shell"
+    },
+    {
+      "script": "packer/bootstrap.sh",
+      "type": "shell"
+    },
+    {
+      "playbook_dir": "ansible",
+      "inventory_file": "ansible/inventories/{{user `inventory_file`}}",
+      "extra_arguments": [
+        "-vvv"
+      ],
+      "playbook_file": "ansible/{{user `playbook_file`}}",
+      "type": "ansible-local"
+    },
+    {
+      "script": "packer/cleanup.sh",
+      "type": "shell"
+    }
+  ],
+  "builders": [
+    {
+      "ssh_username": "ubuntu",
+      "ami_virtualization_type": "{{user `aws_ami_virtualization`}}",
+      "run_tags": {
+        "Name": "greetings_ami_build-{{user `custom_timestamp`}}-{{user `aws_vpc`}}",
+        "billing": "ops"
+      },
+      "tags": {
+        "platform": "linux",
+        "creator": "youngook.kim",
+        "ami_uuid": "{{user `ami_uuid`}}"
+      },
+      "launch_block_device_mappings": [
+        {
+          "volume_size": 8,
+          "delete_on_termination": true,
+          "volume_type": "gp2",
+          "device_name": "/dev/sda1"
+        }
+      ],
+      "security_group_ids": [
+        "{{user `aws_securitygroup_id`}}"
+      ],
+      "access_key": "{{user `aws_access_key`}}",
+      "ami_block_device_mappings": [
+        {
+          "volume_size": 8,
+          "delete_on_termination": true,
+          "volume_type": "gp2",
+          "device_name": "/dev/sda1"
+        }
+      ],
+      "source_ami": "{{user `aws_source_ami`}}",
+      "subnet_id": "{{user `aws_subnet`}}",
+      "region": "{{user `aws_region`}}",
+      "ami_name": "greetings-{{user `custom_timestamp`}}-{{user `aws_vpc`}}-{{user `app_version`}}",
+      "iam_instance_profile": "{{user `aws_iam_instance_profile`}}",
+      "instance_type": "{{user `aws_instance_type`}}",
+      "ami_description": "greetings app for continuous delivery presentation",
+      "ssh_timeout": "5m",
+      "associate_public_ip_address": false,
+      "vpc_id": "{{user `aws_vpc`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "type": "amazon-ebs"
+    }
+  ]
+}
