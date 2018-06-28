@@ -50,8 +50,10 @@
         "billing": "ops"
       },
       "tags": {
+        "Name": "greetings-{{user `custom_timestamp`}}",
         "platform": "linux",
-        "creator": "youngook.kim",
+        "app": "greetings",
+        "version": "0.1.0",
         "ami_uuid": "{{user `ami_uuid`}}"
       },
       "launch_block_device_mappings": [
