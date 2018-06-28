@@ -1,7 +1,7 @@
 ---
 - file: dest=/opt/greetings state=directory mode=0755
 
-- copy: src={{ role_path }}/{{ app_binary }} dest=/opt/greetings/ mode=0755
+- copy: src={{ role_path }}/files/{{ app_binary }} dest=/opt/greetings/ mode=0755
 
 - template: src=greetings.j2 dest=/etc/init.d/greetings mode=0755
 
