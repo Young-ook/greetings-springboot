@@ -6,5 +6,4 @@
   - greetings
   vars:
     java_packages: oracle-java8-installer
-    deploy_bucket: iotcloud-d-vr-sysctl
     app_binary: gs-spring-boot-0.1.0.jar
