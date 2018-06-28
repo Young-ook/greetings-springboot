@@ -11,7 +11,7 @@ To test and build the application, execute:
 If you are using maven, execute:
 ```
 ./mvnw test
-./mvnw build
+./mvnw package
 ```
 
 If you want to see the all tasks are defined in build.gradle file. This command will show you the all task that you can run
