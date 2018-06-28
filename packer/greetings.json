@@ -4,6 +4,7 @@
     "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
     "inventory_file": null,
     "playbook_file": null,
+    "ansible_dir": null,
     "custom_timestamp": "{{timestamp}}",
     "extra_vars": null,
     "ami_uuid": null,
@@ -22,20 +23,21 @@
       "type": "shell"
     },
     {
-      "script": "packer/bootstrap.sh",
+      "script": "bootstrap.sh",
       "type": "shell"
     },
     {
-      "playbook_dir": "ansible",
-      "inventory_file": "ansible/inventories/{{user `inventory_file`}}",
+      "playbook_dir": "{{user `ansible_dir`}}",
+      "inventory_file": "{{user `ansible_dir`}}/inventories/{{user `inventory_file`}}",
       "extra_arguments": [
         "-vvv"
       ],
-      "playbook_file": "ansible/{{user `playbook_file`}}",
+      "playbook_file": "{{user `ansible_dir`}}/{{user `playbook_file`}}",
+      "galaxy_file": "galaxy-requirements.yml",
       "type": "ansible-local"
     },
     {
-      "script": "packer/cleanup.sh",
+      "script": "cleanup.sh",
       "type": "shell"
     }
   ],
@@ -48,8 +50,10 @@
         "billing": "ops"
       },
       "tags": {
+        "Name": "greetings-{{user `custom_timestamp`}}",
         "platform": "linux",
-        "creator": "youngook.kim",
+        "app": "greetings",
+        "version": "0.1.0",
         "ami_uuid": "{{user `ami_uuid`}}"
       },
       "launch_block_device_mappings": [
