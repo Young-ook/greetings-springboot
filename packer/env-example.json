@@ -1,0 +1,14 @@
+{
+  "aws_region": "YOUR_REGION", 
+  "aws_source_ami" : "UBUNTU_1604",
+  "aws_vpc": "YOUR_VPC", 
+  "aws_subnet": "YOUR_SUBNET", 
+  "aws_securitygroup_id": "PACKER_AWARE_SG",
+  "aws_associate_public_ip_address": "false", 
+  "aws_iam_instance_profile": "YOUR_IAM_PROFILE",
+  "ami_uuid": "${uuid}",
+  "ansible_dir": "../ansible",
+  "playbook_file": "greetings.yml",
+  "inventory_file": "greetings-env.ini",
+  "extra_vars": ""
+}
