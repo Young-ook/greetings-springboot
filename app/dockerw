@@ -16,16 +16,16 @@ fi
 BUILD_DIR=build/libs  # or target when you build app using maven
 APP_FILE=gs-spring-boot-0.1.0.jar
 REPO_ORG=young
-APP_TAG=gs-springboot-0.1.0
+APP_TAG=gs-springboot
 
 function build {
   # build and packaging docker image from  Dockerfile
-  docker build --build-arg JAR_FILE=$BUILD_DIR/$APP_FILE --tag $REPO_ORG:$APP_TAG .
+  docker build --build-arg JAR_FILE=$BUILD_DIR/$APP_FILE --tag $REPO_ORG/$APP_TAG:latest .
 }
 
 function run {
   build;
-  docker run -p 8080:8080 -t $REPO_ORG:$APP_TAG
+  docker run -p 8080:8080 -t $REPO_ORG/$APP_TAG:latest
 }
 
 # check if artifact is exit first
