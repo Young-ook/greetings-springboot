@@ -37,9 +37,20 @@ Finally, you can clean up all artifacts and dependencies made by build tools (gr
 ```
 
 ## How to make Immutable Image
-### Copy artifact
+### Build docker image from Dockerfile
+After you've done of build application steps, you can make a docker image from Dockerfile and artifact what you made before. If you just want to create docker image you can use `build` subcommand of docker-wrapper script.
+```
+./dockerw build
+```
+Or you want to build and run at once, you can use `run` command. This command will create docker image and run it automatically.
+```
+./dockerw run
+```
 
-### Run the bake job
+### Build AMI and docker image using packer and ansible
+#### Copy artifact
+
+#### Run the bake job
 ```
 packer build greetings.json
 ```

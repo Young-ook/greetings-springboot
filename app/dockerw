@@ -1,0 +1,53 @@
+#!/bin/bash
+
+function print_usage {
+  echo "usage: $0 <task>"
+  echo ""
+  echo "available task:"
+  echo "  build"
+  echo "  run"
+}
+
+if [[ $# -lt 1 || $# -gt 1 ]] ; then
+  print_usage;
+  exit 1
+fi
+
+BUILD_DIR=build/libs  # or target when you build app using maven
+APP_FILE=gs-spring-boot-0.1.0.jar
+REPO_ORG=young
+APP_TAG=gs-springboot-0.1.0
+
+function build {
+  # build and packaging docker image from  Dockerfile
+  docker build --build-arg JAR_FILE=$BUILD_DIR/$APP_FILE --tag $REPO_ORG:$APP_TAG .
+}
+
+function run {
+  build;
+  docker run -p 8080:8080 -t $REPO_ORG:$APP_TAG
+}
+
+# check if artifact is exit first
+if [ ! -d $BUILD_DIR ] ; then
+  BUILD_DIR=target
+fi
+
+if [ ! -d $BUILD_DIR ] ; then
+  echo "There is no artifact. Please build the application first."
+  echo "You can use gradle or maven."
+  exit 1
+fi
+
+# build image and run instance
+case $1 in
+build)
+  build;
+  ;;
+run)
+  run;
+  ;;
+*)
+  print_usage;
+  exit 1
+esac
