@@ -1,4 +1,8 @@
 # `Greetings` Spring Boot Example
+## Prerequisites
+* Java 8 SDK
+* Docker CE
+* Packer
 
 ## How to build and run
 ### Compile, test and build
