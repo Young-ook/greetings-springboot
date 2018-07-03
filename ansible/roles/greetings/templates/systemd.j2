@@ -1,0 +1,9 @@
+[Unit]
+Description=Job that runs the greetings daemon
+[Service]
+Type=forking
+Environment=statedir=/var/cache/greetings
+ExecStartPre=/usr/bin/mkdir -p ${statedir}
+ExecStart=/opt/greetings/{{ app_binary }} --statedir ${statedir}
+[Install]
+WantedBy=multi-user.target
