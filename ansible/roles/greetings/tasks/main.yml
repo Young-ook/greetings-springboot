@@ -4,3 +4,4 @@
 - copy: src={{ role_path }}/files/{{ app_binary }} dest=/opt/greetings/ mode=0755
 
 - include: service.yml
+  notify: start greetings

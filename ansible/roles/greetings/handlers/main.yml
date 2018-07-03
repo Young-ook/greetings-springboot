@@ -1,0 +1,6 @@
+---
+- name: restart greetings
+  service: name=greetings state=restarted
+
+- name: start greetings
+  service: name=greetings state=started
