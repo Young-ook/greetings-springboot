@@ -3,6 +3,4 @@
 
 - copy: src={{ role_path }}/files/{{ app_binary }} dest=/opt/greetings/ mode=0755
 
-- template: src=greetings.j2 dest=/etc/init.d/greetings mode=0755
-
-- shell: update-rc.d greetings defaults
+- include: service.yml
