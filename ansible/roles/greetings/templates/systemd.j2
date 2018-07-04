@@ -1,7 +1,10 @@
 [Unit]
-Description=Job that runs the greetings daemon
+Description=Greetings Service
+
 [Service]
-Type=forking
-ExecStart=/usr/bin/java -jar /opt/greetings/{{ app_binary }}
+Type=simple
+WorksingDirectory=/opt/greetings
+ExecStart=/bin/sh -c "exec java -jar /opt/greetings/{{ app_binary }}"
+
 [Install]
 WantedBy=multi-user.target
