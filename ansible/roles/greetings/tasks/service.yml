@@ -2,7 +2,7 @@
 ### Upstart
 - name: Create a deamon (upstart)
   template: src=upstart.j2 dest=/etc/init/greetings.conf mode=0644
-  notify: start greetings
+  notify: refresh greetings
   when:
   - ansible_distribution_version < '16.04'
   - ansible_distribution == "Ubuntu"
@@ -10,7 +10,7 @@
 ### Systemd
 - name: Create a deamon (systemd)
   template: src=systemd.j2 dest=/lib/systemd/system/greetings.service mode=0644
-  notify: start greetings
+  notify: refresh greetings
   when:
   - ansible_distribution_version >= '16.04'
   - ansible_distribution == "Ubuntu"
