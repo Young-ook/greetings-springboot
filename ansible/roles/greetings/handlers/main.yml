@@ -1,0 +1,10 @@
+---
+- name: refresh greetings
+  service: name=greetings enabled=yes daemon_reload=yes
+  notify: start greetings
+
+- name: start greetings
+  service: name=greetings state=started
+
+- name: restart greetings
+  service: name=greetings state=restarted

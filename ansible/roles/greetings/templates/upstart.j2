@@ -1,6 +1,4 @@
 description "Job that runs the greetings daemon"
 start on runlevel [2345]
 stop on runlevel [016]
-env statedir=/var/cache/greetings
-pre-start exec mkdir -p $statedir
-exec /opt/greetings/{{ app_binary }} --statedir $statedir
+exec /usr/bin/java -jar /opt/greetings/{{ app_binary }}

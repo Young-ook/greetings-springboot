@@ -1,6 +1,6 @@
 ---
 - file: dest=/opt/greetings state=directory mode=0755
 
-- copy: src={{ role_path }}/files/{{ app_binary }} dest=/opt/greetings/ mode=0755
+- copy: src={{ role_path }}/files/{{ app_binary }} dest=/opt/greetings/ mode=0644
 
 - include: service.yml
