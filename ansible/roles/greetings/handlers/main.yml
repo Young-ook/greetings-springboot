@@ -1,6 +1,6 @@
 ---
+- name: start greetings
+  service: name=greetings state=started enabled=yes daemon_reload=yes
+
 - name: restart greetings
   service: name=greetings state=restarted
-
-- name: start greetings
-  service: name=greetings state=started
