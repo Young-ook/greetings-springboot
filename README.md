@@ -50,6 +50,10 @@ Or you want to build and run at once, you can use `run` command. This command wi
 ```
 ./dockerw run
 ```
+If you are using maven, you can build a docker image using maven plugin which is made by spotify.
+```
+./mvnw docker:build or ./mvnw packer docker:build
+```
 
 ### Build AMI and docker image using packer and ansible
 #### Copy artifact
