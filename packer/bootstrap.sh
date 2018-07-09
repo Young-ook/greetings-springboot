@@ -8,6 +8,5 @@ sudo pip install --upgrade pip
 
 cat <<EOT > /tmp/requirements.txt
 ansible==2.4.0
-awscli
 EOT
 sudo pip install -r /tmp/requirements.txt
